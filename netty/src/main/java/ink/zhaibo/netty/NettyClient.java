@@ -25,12 +25,13 @@ public class NettyClient {
                 // 2.指定 IO 类型为 NIO
                 .channel(NioSocketChannel.class)
                 // 3.IO 处理逻辑
-                .handler(new ChannelInitializer<Channel>() {
+                .handler(new ClientHandler());
+              /*  .handler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel ch) {
                         ch.pipeline().addLast(new StringEncoder());
                     }
-                });
+                });*/
 
         Channel channel = bootstrap.connect(Constants.LOCAL_HOST, Constants.SERVER_PORT).channel();
         while (true) {

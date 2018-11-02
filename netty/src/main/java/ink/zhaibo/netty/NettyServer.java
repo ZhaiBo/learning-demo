@@ -34,7 +34,8 @@ public class NettyServer {
                 })
 
                 //childHandler()用于指定处理新连接数据的读写处理逻辑
-                .childHandler(new ChannelInitializer<NioSocketChannel>() {
+                .childHandler(new ServerHandler());
+               /* .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
                         ch.pipeline().addLast(new StringDecoder());
@@ -45,7 +46,7 @@ public class NettyServer {
                             }
                         });
                     }
-                });
+                });*/
 
         //从8000开始绑定,绑定失败则端口+1
         bindPort(serverBootstrap, Constants.SERVER_PORT);

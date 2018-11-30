@@ -1,4 +1,4 @@
-package ink.zhaibo.netty;
+package ink.zhaibo.netty.api;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -7,7 +7,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import java.nio.charset.Charset;
 import java.util.Date;
 
-public class ClientHandler extends ChannelInboundHandlerAdapter {
+public class FirstClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         System.out.println(new Date() + ": 客户端写出数据");

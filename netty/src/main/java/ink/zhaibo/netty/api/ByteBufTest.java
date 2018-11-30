@@ -1,4 +1,4 @@
-package ink.zhaibo.netty;
+package ink.zhaibo.netty.api;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;

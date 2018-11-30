@@ -1,4 +1,4 @@
-package ink.zhaibo.netty;
+package ink.zhaibo.netty.api;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -7,7 +7,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import java.nio.charset.Charset;
 import java.util.Date;
 
-public class ServerHandler extends ChannelInboundHandlerAdapter {
+public class FirstServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf byteBuf = (ByteBuf) msg;

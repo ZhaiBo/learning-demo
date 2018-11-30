@@ -1,6 +1,7 @@
-package ink.zhaibo.netty;
+package ink.zhaibo.netty.api;
 
 import ink.zhaibo.config.Constants;
+import ink.zhaibo.netty.utils.NettyUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -8,7 +9,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
@@ -34,11 +34,10 @@ public class NettyServer {
                 })
 
                 //childHandler()用于指定处理新连接数据的读写处理逻辑
-                .childHandler(new ServerHandler());
-               /* .childHandler(new ChannelInitializer<NioSocketChannel>() {
+                .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
-                        ch.pipeline().addLast(new StringDecoder());
+                        ch.pipeline().addLast(new FirstServerHandler());
                         ch.pipeline().addLast(new SimpleChannelInboundHandler<String>() {
                             @Override
                             protected void channelRead0(ChannelHandlerContext ctx, String msg) {
@@ -46,23 +45,9 @@ public class NettyServer {
                             }
                         });
                     }
-                });*/
+                });
 
         //从8000开始绑定,绑定失败则端口+1
-        bindPort(serverBootstrap, Constants.SERVER_PORT);
-    }
-
-    public static void bindPort(final ServerBootstrap serverBootstrap, final int port) {
-        serverBootstrap.bind(port).addListener(new GenericFutureListener<Future<? super Void>>() {
-            @Override
-            public void operationComplete(Future<? super Void> future) {
-                if (future.isSuccess()) {
-                    System.out.println("端口[" + port + "]绑定成功!");
-                } else {
-                    System.err.println("端口[" + port + "]绑定失败!");
-                    bindPort(serverBootstrap, port + 1);
-                }
-            }
-        });
+        NettyUtils.bindPort(serverBootstrap, Constants.SERVER_PORT);
     }
 }

@@ -13,7 +13,7 @@ public class SMSController {
     private ISMSService smsService;
 
     @ResponseBody
-    @RequestMapping(value = "/sendmessage/{telephone}",method = RequestMethod.GET)
+    @RequestMapping(value = "/send/{telephone}",method = RequestMethod.GET)
     public String sendMessage(@PathVariable String telephone){
         if(StringUtils.isEmpty(telephone)){
             return "手机号为空";

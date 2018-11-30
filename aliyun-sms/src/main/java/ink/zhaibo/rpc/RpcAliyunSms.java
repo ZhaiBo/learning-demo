@@ -63,7 +63,6 @@ public class RpcAliyunSms {
             if (sendSmsResponse.getCode() == null || !sendSmsResponse.getCode().equals(SUCCESS_CODE)) {
                 return "获取短信验证码失败";
             }
-
         } catch (ClientException e) {
            e.printStackTrace();
         }

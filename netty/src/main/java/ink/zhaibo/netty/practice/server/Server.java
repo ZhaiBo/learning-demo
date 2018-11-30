@@ -1,7 +1,7 @@
 package ink.zhaibo.netty.practice.server;
 
 import ink.zhaibo.config.Constants;
-import ink.zhaibo.netty.utils.NettyUtils;
+import ink.zhaibo.netty.utils.ServerUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -28,6 +28,6 @@ public class Server {
                     }
                 });
 
-        NettyUtils.bindPort(serverBootstrap, Constants.SERVER_PORT);
+        ServerUtils.bindPort(serverBootstrap, Constants.SERVER_PORT);
     }
 }

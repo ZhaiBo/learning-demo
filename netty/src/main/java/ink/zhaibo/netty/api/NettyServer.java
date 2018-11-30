@@ -1,7 +1,7 @@
 package ink.zhaibo.netty.api;
 
 import ink.zhaibo.config.Constants;
-import ink.zhaibo.netty.utils.NettyUtils;
+import ink.zhaibo.netty.utils.ServerUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -9,8 +9,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 
 public class NettyServer {
     public static void main(String[] args) {
@@ -48,6 +46,6 @@ public class NettyServer {
                 });
 
         //从8000开始绑定,绑定失败则端口+1
-        NettyUtils.bindPort(serverBootstrap, Constants.SERVER_PORT);
+        ServerUtils.bindPort(serverBootstrap, Constants.SERVER_PORT);
     }
 }

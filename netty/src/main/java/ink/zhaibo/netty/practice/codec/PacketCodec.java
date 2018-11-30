@@ -1,9 +1,6 @@
 package ink.zhaibo.netty.practice.codec;
 
-import ink.zhaibo.netty.practice.protocol.Command;
-import ink.zhaibo.netty.practice.protocol.LoginRequestPacket;
-import ink.zhaibo.netty.practice.protocol.LoginResponsePacket;
-import ink.zhaibo.netty.practice.protocol.Packet;
+import ink.zhaibo.netty.practice.protocol.*;
 import ink.zhaibo.netty.practice.serializer.JSONSerializer;
 import ink.zhaibo.netty.practice.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
@@ -24,8 +21,14 @@ public class PacketCodec {
 
     static {
         packetTypeMap = new HashMap<>();
+
+        //登录
         packetTypeMap.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
+
+        //消息
+        packetTypeMap.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetTypeMap.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
@@ -84,6 +87,10 @@ public class PacketCodec {
         return serializerMap.get(serializeAlgorithm);
     }
 
+    /**
+     * 根据command 去获取传输实体类型
+     * @param command
+     */
     private Class<? extends Packet> getRequestType(byte command) {
         return packetTypeMap.get(command);
     }

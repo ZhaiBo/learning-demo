@@ -3,7 +3,9 @@ package ink.zhaibo.netty.practice.client;
 import ink.zhaibo.netty.practice.codec.PacketCodec;
 import ink.zhaibo.netty.practice.protocol.LoginRequestPacket;
 import ink.zhaibo.netty.practice.protocol.LoginResponsePacket;
+import ink.zhaibo.netty.practice.protocol.MessageResponsePacket;
 import ink.zhaibo.netty.practice.protocol.Packet;
+import ink.zhaibo.netty.utils.LoginUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -36,12 +38,15 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
         if (packet instanceof LoginResponsePacket) {
             LoginResponsePacket loginResponsePacket = (LoginResponsePacket) packet;
-
             if (loginResponsePacket.isSuccess()) {
+                LoginUtils.markAsLogin(ctx.channel());
                 System.out.println(new Date() + ": 客户端登录成功");
             } else {
                 System.out.println(new Date() + ": 客户端登录失败，原因：" + loginResponsePacket.getReason());
             }
+        }else if(packet instanceof MessageResponsePacket){
+            MessageResponsePacket messageResponsePacket = (MessageResponsePacket) packet;
+            System.out.println(new Date() + ": 收到服务端的消息: " + messageResponsePacket.getMessage());
         }
     }
 }

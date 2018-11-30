@@ -1,7 +1,7 @@
 package ink.zhaibo.netty.practice.client;
 
 import ink.zhaibo.config.Constants;
-import ink.zhaibo.netty.utils.NettyUtils;
+import ink.zhaibo.netty.utils.ClientUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -30,6 +30,6 @@ public class Client {
                     }
                 });
 
-        NettyUtils.connect(bootstrap, Constants.LOCAL_HOST, Constants.SERVER_PORT, MAX_RETRY);
+        ClientUtils.connect(bootstrap, Constants.LOCAL_HOST, Constants.SERVER_PORT, MAX_RETRY);
     }
 }

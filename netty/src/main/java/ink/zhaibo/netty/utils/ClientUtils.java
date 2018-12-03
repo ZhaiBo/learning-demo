@@ -1,9 +1,7 @@
 package ink.zhaibo.netty.utils;
 
-import ink.zhaibo.netty.practice.codec.PacketCodec;
 import ink.zhaibo.netty.practice.protocol.MessageRequestPacket;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 
@@ -48,11 +46,10 @@ public class ClientUtils {
                     //登录成功,输入消息发送至服务端
                     Scanner sc = new Scanner(System.in);
                     String line = sc.nextLine();
-
-                    MessageRequestPacket packet = new MessageRequestPacket();
-                    packet.setMessage(line);
-                    ByteBuf byteBuf = PacketCodec.INSTANCE.encode(channel.alloc(), packet);
-                    channel.writeAndFlush(byteBuf);
+//                  MessageRequestPacket packet = new MessageRequestPacket();
+//                  packet.setMessage(line);
+//                  ByteBuf byteBuf = PacketCodec.INSTANCE.encode(channel.alloc(), packet);
+                    channel.writeAndFlush(new MessageRequestPacket(line));
                 }
             }
         }).start();

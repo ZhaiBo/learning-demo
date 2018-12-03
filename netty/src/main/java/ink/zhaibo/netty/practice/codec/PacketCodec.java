@@ -15,7 +15,7 @@ import java.util.Map;
 public class PacketCodec {
     public static PacketCodec INSTANCE = new PacketCodec();
 
-    private static final int MAGIC_NUMBER = 0x12345678;
+    public static final int MAGIC_NUMBER = 0x12345678;
     private static final Map<Byte, Class<? extends Packet>> packetTypeMap;
     private static final Map<Byte, Serializer> serializerMap;
 
@@ -53,7 +53,7 @@ public class PacketCodec {
         return byteBuf;
     }
 
-    public ByteBuf autoEncode(  ByteBuf byteBuf , Packet packet) {
+    public ByteBuf autoEncode(ByteBuf byteBuf, Packet packet) {
         byte[] bytes = Serializer.DEFAULT.serialize(packet);
         byteBuf.writeInt(MAGIC_NUMBER);
         byteBuf.writeByte(packet.getVersion());
@@ -100,6 +100,7 @@ public class PacketCodec {
 
     /**
      * 根据command 去获取传输实体类型
+     *
      * @param command
      */
     private Class<? extends Packet> getRequestType(byte command) {

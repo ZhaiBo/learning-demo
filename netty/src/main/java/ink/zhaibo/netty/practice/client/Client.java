@@ -30,6 +30,7 @@ public class Client {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
 //                        ch.pipeline().addLast(new ClientHandler());
+//                        生命周期ch.pipeline().addLast(new LifeCycleTestHandler());
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginResponseHandler());

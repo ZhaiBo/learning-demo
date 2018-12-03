@@ -53,6 +53,17 @@ public class PacketCodec {
         return byteBuf;
     }
 
+    public ByteBuf autoEncode(  ByteBuf byteBuf , Packet packet) {
+        byte[] bytes = Serializer.DEFAULT.serialize(packet);
+        byteBuf.writeInt(MAGIC_NUMBER);
+        byteBuf.writeByte(packet.getVersion());
+        byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlgorithm());
+        byteBuf.writeByte(packet.getCommand());
+        byteBuf.writeInt(bytes.length);
+        byteBuf.writeBytes(bytes);
+        return byteBuf;
+    }
+
 
     public Packet decode(ByteBuf byteBuf) {
         // 跳过 magic number

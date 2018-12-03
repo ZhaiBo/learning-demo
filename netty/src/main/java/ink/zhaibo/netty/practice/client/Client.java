@@ -1,6 +1,10 @@
 package ink.zhaibo.netty.practice.client;
 
 import ink.zhaibo.config.Constants;
+import ink.zhaibo.netty.practice.codec.PacketDecoder;
+import ink.zhaibo.netty.practice.codec.PacketEncoder;
+import ink.zhaibo.netty.practice.server.LoginRequestHandler;
+import ink.zhaibo.netty.practice.server.MessageRequestHandler;
 import ink.zhaibo.netty.utils.ClientUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -25,8 +29,12 @@ public class Client {
                 .option(ChannelOption.TCP_NODELAY, true)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel socketChannel) throws Exception {
-                        socketChannel.pipeline().addLast(new ClientHandler());
+                    protected void initChannel(SocketChannel ch) throws Exception {
+//                        socketChannel.pipeline().addLast(new ClientHandler());
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginResponseHandler());
+                        ch.pipeline().addLast(new MessageResponseHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 

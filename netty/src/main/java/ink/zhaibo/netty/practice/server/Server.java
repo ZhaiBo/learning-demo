@@ -1,6 +1,8 @@
 package ink.zhaibo.netty.practice.server;
 
 import ink.zhaibo.config.Constants;
+import ink.zhaibo.netty.practice.codec.PacketDecoder;
+import ink.zhaibo.netty.practice.codec.PacketEncoder;
 import ink.zhaibo.netty.utils.ServerUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -23,8 +25,12 @@ public class Server {
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
+//                        ch.pipeline().addLast(new ServerHandler());
                     protected void initChannel(NioSocketChannel ch) {
-                        ch.pipeline().addLast(new ServerHandler());
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginRequestHandler());
+                        ch.pipeline().addLast(new MessageRequestHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 

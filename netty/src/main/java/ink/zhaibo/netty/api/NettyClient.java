@@ -36,6 +36,4 @@ public class NettyClient {
 
         //connect(bootstrap,Constants.LOCAL_HOST,Constants.SERVER_PORT,MAX_RETRY);
     }
-
-
 }

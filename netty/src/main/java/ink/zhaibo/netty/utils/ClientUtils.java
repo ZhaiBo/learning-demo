@@ -1,5 +1,6 @@
 package ink.zhaibo.netty.utils;
 
+import ink.zhaibo.netty.practice.protocol.LoginRequestPacket;
 import ink.zhaibo.netty.practice.protocol.MessageRequestPacket;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -40,18 +41,47 @@ public class ClientUtils {
      * 启动控制台线程
      */
     private static void startConsoleThread(Channel channel) {
+        Scanner sc = new Scanner(System.in);
+        LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
         new Thread(() -> {
             while (!Thread.interrupted()) {
-                if (LoginUtils.hasLogin(channel)) {
-                    //登录成功,输入消息发送至服务端
-                    Scanner sc = new Scanner(System.in);
-                    String line = sc.nextLine();
-//                  MessageRequestPacket packet = new MessageRequestPacket();
-//                  packet.setMessage(line);
-//                  ByteBuf byteBuf = PacketCodec.INSTANCE.encode(channel.alloc(), packet);
-                    channel.writeAndFlush(new MessageRequestPacket(line));
+                if (!SessionUtils.hasLogin(channel)) {
+                    System.out.print("输入用户名登录: ");
+                    String username = sc.nextLine();
+                    loginRequestPacket.setUsername(username);
+
+                    // 密码使用默认的
+                    loginRequestPacket.setPassword("pwd");
+
+                    // 发送登录数据包
+                    channel.writeAndFlush(loginRequestPacket);
+                    waitForLoginResponse();
+                } else {
+                    String toUserId = sc.next();
+                    String message = sc.next();
+                    channel.writeAndFlush(new MessageRequestPacket(toUserId, message));
                 }
             }
         }).start();
     }
+
+    private static void waitForLoginResponse() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ignored) {
+        }
+    }
 }
+ /*new Thread(() -> {
+         while (!Thread.interrupted()) {
+         if (LoginUtils.hasLogin(channel)) {
+         //登录成功,输入消息发送至服务端
+         Scanner sc = new Scanner(System.in);
+         String line = sc.nextLine();
+//                  MessageRequestPacket packet = new MessageRequestPacket();
+//                  packet.setMessage(line);
+//                  ByteBuf byteBuf = PacketCodec.INSTANCE.encode(channel.alloc(), packet);
+         channel.writeAndFlush(new MessageRequestPacket(line));
+         }
+         }
+         }).start();*/

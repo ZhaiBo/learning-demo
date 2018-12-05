@@ -48,13 +48,14 @@ public class ClientUtils {
                 if (!SessionUtils.hasLogin(channel)) {
                     System.out.print("输入用户名登录: ");
                     String username = sc.nextLine();
-                    loginRequestPacket.setUsername(username);
+                    loginRequestPacket.setUserName(username);
 
                     // 密码使用默认的
                     loginRequestPacket.setPassword("pwd");
 
                     // 发送登录数据包
                     channel.writeAndFlush(loginRequestPacket);
+
                     waitForLoginResponse();
                 } else {
                     String toUserId = sc.next();

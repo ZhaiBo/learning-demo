@@ -2,23 +2,27 @@ package ink.zhaibo.netty.practice.server;
 
 import ink.zhaibo.netty.practice.protocol.LoginRequestPacket;
 import ink.zhaibo.netty.practice.protocol.LoginResponsePacket;
-import ink.zhaibo.netty.utils.LoginUtils;
+import ink.zhaibo.netty.practice.protocol.Session;
+import ink.zhaibo.netty.utils.SessionUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket loginRequestPacket) {
-        System.out.println(new Date() + ": 收到客户端登录请求……");
-
         LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
         loginResponsePacket.setVersion(loginRequestPacket.getVersion());
+        loginResponsePacket.setUserName(loginRequestPacket.getUserName());
+
         if (valid(loginRequestPacket)) {
             loginResponsePacket.setSuccess(true);
-            System.out.println(new Date() + ": 登录成功!");
-            LoginUtils.markAsLogin(ctx.channel());
+            String userId = randomUserId();
+            loginResponsePacket.setUserId(userId);
+            System.out.println("[" + loginRequestPacket.getUserName() + "]登录成功");
+            SessionUtils.bindSession(new Session(userId, loginRequestPacket.getUserName()), ctx.channel());
         } else {
             loginResponsePacket.setReason("账号密码校验失败");
             loginResponsePacket.setSuccess(false);
@@ -31,5 +35,14 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
 
     private boolean valid(LoginRequestPacket loginRequestPacket) {
         return true;
+    }
+
+    private static String randomUserId() {
+        return UUID.randomUUID().toString().split("-")[0];
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        SessionUtils.unBindSession(ctx.channel());
     }
 }

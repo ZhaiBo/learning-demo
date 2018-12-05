@@ -8,9 +8,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SessionUtils {
     /**
-     *  userId -> channel 的映射
+     * userId -> channel 的映射
      */
-    private static Map<String, Channel> userIdChannelMap = new ConcurrentHashMap<String, Channel>();
+    private static final Map<String, Channel> userIdChannelMap = new ConcurrentHashMap<>();
 
     public static void bindSession(Session session, Channel channel) {
         userIdChannelMap.put(session.getUserId(), channel);
@@ -25,14 +25,17 @@ public class SessionUtils {
     }
 
     public static boolean hasLogin(Channel channel) {
+
         return channel.hasAttr(Attributes.SESSION);
     }
 
     public static Session getSession(Channel channel) {
+
         return channel.attr(Attributes.SESSION).get();
     }
 
     public static Channel getChannel(String userId) {
+
         return userIdChannelMap.get(userId);
     }
 }

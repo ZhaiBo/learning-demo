@@ -1,11 +1,22 @@
 package ink.zhaibo.netty.practice.server;
 
 import ink.zhaibo.netty.utils.LoginUtils;
+import ink.zhaibo.netty.utils.SessionUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class AuthHandler extends ChannelInboundHandlerAdapter {
     @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (!SessionUtils.hasLogin(ctx.channel())) {
+            ctx.channel().close();
+        } else {
+            ctx.pipeline().remove(this);
+            super.channelRead(ctx, msg);
+        }
+    }
+
+  /*  @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (!LoginUtils.hasLogin(ctx.channel())) {
             ctx.channel().close();
@@ -22,5 +33,5 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
         } else {
             System.out.println("无登录验证，强制关闭连接!");
         }
-    }
+    }*/
 }

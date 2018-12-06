@@ -5,6 +5,7 @@ import ink.zhaibo.netty.groupchat.response.CreateGroupResponsePacket;
 import ink.zhaibo.netty.utils.IDUtil;
 import ink.zhaibo.netty.utils.SessionUtils;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -13,7 +14,20 @@ import io.netty.channel.group.DefaultChannelGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Netty 在这里的逻辑是：
+ * 每次有新连接到来的时候，
+ * 都会调用 ChannelInitializer 的 initChannel() 方法，
+ * 然后这里 9 个指令相关的 handler 都会被 new 一次。
+ * 我们可以看到，其实这里的每一个指令 handler，他们内部都是没有成员变量的，也就是说是无状态的，
+ * 我们完全可以使用单例模式，即调用 pipeline().addLast() 方法的时候，都直接使用单例，
+ * 不需要每次都 new，提高效率，也避免了创建很多小的对象。
+ */
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+
+    public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket createGroupRequestPacket) {
         List<String> userIdList = createGroupRequestPacket.getUserIdList();

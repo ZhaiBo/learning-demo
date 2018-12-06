@@ -1,7 +1,6 @@
 package ink.zhaibo.netty.groupchat.client;
 
-import ink.zhaibo.netty.common.codec.PacketDecoder;
-import ink.zhaibo.netty.common.codec.PacketEncoder;
+import ink.zhaibo.netty.common.codec.PacketCodecHandler;
 import ink.zhaibo.netty.common.codec.Spliter;
 import ink.zhaibo.netty.groupchat.client.handler.*;
 import ink.zhaibo.netty.groupchat.command.LoginConsoleCommand;
@@ -44,7 +43,7 @@ public class GroupClient {
                     @Override
                     public void initChannel(SocketChannel ch) {
                         ch.pipeline().addLast(new Spliter());
-                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         // 登录响应处理器
                         ch.pipeline().addLast(new LoginResponseHandler());
                         // 收消息处理器
@@ -57,9 +56,10 @@ public class GroupClient {
                         ch.pipeline().addLast(new QuitGroupResponseHandler());
                         // 获取群成员响应处理器
                         ch.pipeline().addLast(new ListGroupMembersResponseHandler());
+                        // 群发消息
+                        ch.pipeline().addLast(new GroupMessageResponseHandler());
                         // 登出响应处理器
                         ch.pipeline().addLast(new LogoutResponseHandler());
-                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 

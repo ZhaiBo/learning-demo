@@ -1,6 +1,7 @@
 package ink.zhaibo.netty.groupchat.client.handler;
 
 import ink.zhaibo.netty.groupchat.response.QuitGroupResponsePacket;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

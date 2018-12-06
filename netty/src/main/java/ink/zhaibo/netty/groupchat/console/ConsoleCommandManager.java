@@ -1,8 +1,6 @@
 package ink.zhaibo.netty.groupchat.console;
 
-import ink.zhaibo.netty.groupchat.command.CreateGroupConsoleCommand;
-import ink.zhaibo.netty.groupchat.command.LogoutConsoleCommand;
-import ink.zhaibo.netty.groupchat.command.SendToUserConsoleCommand;
+import ink.zhaibo.netty.groupchat.command.*;
 import io.netty.channel.Channel;
 
 import java.util.HashMap;
@@ -17,6 +15,9 @@ public class ConsoleCommandManager implements ConsoleCommand {
         consoleCommandMap.put("sendToUser", new SendToUserConsoleCommand());
         consoleCommandMap.put("logout", new LogoutConsoleCommand());
         consoleCommandMap.put("createGroup", new CreateGroupConsoleCommand());
+        consoleCommandMap.put("joinGroup", new JoinGroupConsoleCommand());
+        consoleCommandMap.put("quitGroup", new QuitGroupConsoleCommand());
+        consoleCommandMap.put("listGroupMembers", new ListGroupMembersConsoleCommand());
     }
 
     @Override

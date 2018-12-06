@@ -1,7 +1,7 @@
 package ink.zhaibo.netty.practice.server;
 
-import ink.zhaibo.netty.practice.codec.PacketCodec;
-import ink.zhaibo.netty.practice.protocol.*;
+import ink.zhaibo.netty.common.codec.PacketCodec;
+import ink.zhaibo.netty.common.protocol.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

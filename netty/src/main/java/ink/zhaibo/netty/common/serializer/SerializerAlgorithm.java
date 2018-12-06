@@ -1,4 +1,4 @@
-package ink.zhaibo.netty.practice.serializer;
+package ink.zhaibo.netty.common.serializer;
 
 public interface SerializerAlgorithm {
     /**

@@ -1,4 +1,4 @@
-package ink.zhaibo.netty.practice.codec;
+package ink.zhaibo.netty.common.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

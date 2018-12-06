@@ -1,10 +1,10 @@
 package ink.zhaibo.netty.practice.client;
 
-import ink.zhaibo.netty.practice.codec.PacketCodec;
-import ink.zhaibo.netty.practice.protocol.LoginRequestPacket;
-import ink.zhaibo.netty.practice.protocol.LoginResponsePacket;
-import ink.zhaibo.netty.practice.protocol.MessageResponsePacket;
-import ink.zhaibo.netty.practice.protocol.Packet;
+import ink.zhaibo.netty.common.codec.PacketCodec;
+import ink.zhaibo.netty.common.protocol.LoginRequestPacket;
+import ink.zhaibo.netty.common.protocol.LoginResponsePacket;
+import ink.zhaibo.netty.common.protocol.MessageResponsePacket;
+import ink.zhaibo.netty.common.protocol.Packet;
 import ink.zhaibo.netty.utils.LoginUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

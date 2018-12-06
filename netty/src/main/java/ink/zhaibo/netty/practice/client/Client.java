@@ -1,9 +1,9 @@
 package ink.zhaibo.netty.practice.client;
 
 import ink.zhaibo.config.Constants;
-import ink.zhaibo.netty.practice.codec.PacketDecoder;
-import ink.zhaibo.netty.practice.codec.PacketEncoder;
-import ink.zhaibo.netty.practice.codec.Spliter;
+import ink.zhaibo.netty.common.codec.PacketDecoder;
+import ink.zhaibo.netty.common.codec.PacketEncoder;
+import ink.zhaibo.netty.common.codec.Spliter;
 import ink.zhaibo.netty.utils.ClientUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;

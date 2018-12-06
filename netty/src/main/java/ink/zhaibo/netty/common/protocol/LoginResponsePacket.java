@@ -1,4 +1,4 @@
-package ink.zhaibo.netty.practice.protocol;
+package ink.zhaibo.netty.common.protocol;
 
 import lombok.Data;
 

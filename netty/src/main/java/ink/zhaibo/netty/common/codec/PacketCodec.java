@@ -1,8 +1,12 @@
-package ink.zhaibo.netty.practice.codec;
+package ink.zhaibo.netty.common.codec;
 
-import ink.zhaibo.netty.practice.protocol.*;
-import ink.zhaibo.netty.practice.serializer.JSONSerializer;
-import ink.zhaibo.netty.practice.serializer.Serializer;
+import ink.zhaibo.netty.common.protocol.*;
+import ink.zhaibo.netty.common.serializer.JSONSerializer;
+import ink.zhaibo.netty.common.serializer.Serializer;
+import ink.zhaibo.netty.groupchat.request.CreateGroupRequestPacket;
+import ink.zhaibo.netty.groupchat.request.LogoutRequestPacket;
+import ink.zhaibo.netty.groupchat.response.CreateGroupResponsePacket;
+import ink.zhaibo.netty.groupchat.response.LogoutResponsePacket;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
@@ -29,6 +33,14 @@ public class PacketCodec {
         //消息
         packetTypeMap.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
         packetTypeMap.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
+
+        //登出
+        packetTypeMap.put(Command.LOGOUT_REQUEST, LogoutRequestPacket.class);
+        packetTypeMap.put(Command.LOGOUT_RESPONSE, LogoutResponsePacket.class);
+
+        //群聊发起
+        packetTypeMap.put(Command.CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        packetTypeMap.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();

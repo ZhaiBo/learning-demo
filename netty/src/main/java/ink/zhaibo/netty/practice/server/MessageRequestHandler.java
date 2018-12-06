@@ -1,14 +1,12 @@
 package ink.zhaibo.netty.practice.server;
 
-import ink.zhaibo.netty.practice.protocol.MessageRequestPacket;
-import ink.zhaibo.netty.practice.protocol.MessageResponsePacket;
-import ink.zhaibo.netty.practice.protocol.Session;
+import ink.zhaibo.netty.common.protocol.MessageRequestPacket;
+import ink.zhaibo.netty.common.protocol.MessageResponsePacket;
+import ink.zhaibo.netty.common.protocol.Session;
 import ink.zhaibo.netty.utils.SessionUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
-import java.util.Date;
 
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
     @Override

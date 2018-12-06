@@ -1,6 +1,6 @@
 package ink.zhaibo.netty.practice.client;
 
-import ink.zhaibo.netty.practice.protocol.MessageResponsePacket;
+import ink.zhaibo.netty.common.protocol.MessageResponsePacket;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

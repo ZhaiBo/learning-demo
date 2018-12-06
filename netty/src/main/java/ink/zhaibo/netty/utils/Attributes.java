@@ -1,6 +1,6 @@
 package ink.zhaibo.netty.utils;
 
-import ink.zhaibo.netty.practice.protocol.Session;
+import ink.zhaibo.netty.common.protocol.Session;
 import io.netty.util.AttributeKey;
 
 public interface Attributes {

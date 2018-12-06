@@ -1,8 +1,8 @@
 package ink.zhaibo.netty.practice.server;
 
-import ink.zhaibo.netty.practice.protocol.LoginRequestPacket;
-import ink.zhaibo.netty.practice.protocol.LoginResponsePacket;
-import ink.zhaibo.netty.practice.protocol.Session;
+import ink.zhaibo.netty.common.protocol.LoginRequestPacket;
+import ink.zhaibo.netty.common.protocol.LoginResponsePacket;
+import ink.zhaibo.netty.common.protocol.Session;
 import ink.zhaibo.netty.utils.SessionUtils;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

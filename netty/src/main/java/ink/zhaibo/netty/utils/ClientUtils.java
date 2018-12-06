@@ -1,7 +1,7 @@
 package ink.zhaibo.netty.utils;
 
-import ink.zhaibo.netty.practice.protocol.LoginRequestPacket;
-import ink.zhaibo.netty.practice.protocol.MessageRequestPacket;
+import ink.zhaibo.netty.common.protocol.LoginRequestPacket;
+import ink.zhaibo.netty.common.protocol.MessageRequestPacket;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

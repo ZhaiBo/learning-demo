@@ -5,6 +5,7 @@ import ink.zhaibo.netty.common.codec.Spliter;
 import ink.zhaibo.netty.groupchat.client.handler.*;
 import ink.zhaibo.netty.groupchat.command.LoginConsoleCommand;
 import ink.zhaibo.netty.groupchat.console.ConsoleCommandManager;
+import ink.zhaibo.netty.groupchat.server.handler.IMIdleStateHandler;
 import ink.zhaibo.netty.practice.client.LoginResponseHandler;
 import ink.zhaibo.netty.practice.client.MessageResponseHandler;
 import ink.zhaibo.netty.utils.SessionUtils;
@@ -42,6 +43,8 @@ public class GroupClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) {
+                        // 空闲检测
+                        ch.pipeline().addLast(new IMIdleStateHandler());
                         ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         // 登录响应处理器
@@ -60,6 +63,8 @@ public class GroupClient {
                         ch.pipeline().addLast(new GroupMessageResponseHandler());
                         // 登出响应处理器
                         ch.pipeline().addLast(new LogoutResponseHandler());
+                        // 心跳定时器
+                        ch.pipeline().addLast(new HeartBeatTimerHandler());
                     }
                 });
 

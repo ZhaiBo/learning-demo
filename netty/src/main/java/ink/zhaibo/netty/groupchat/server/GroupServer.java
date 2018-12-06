@@ -35,9 +35,16 @@ public class GroupServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
                         ch.pipeline().addLast(new Spliter());
+                        // 服务端空闲检测,客户端会发送心跳数据包,服务端未读到数据就判定连接假死;
+                        // 客户端也有空闲检测,服务端收到心跳数据包后,做出心跳响应,如未做出,客户端判定连接假死.
+                        ch.pipeline().addLast(new IMIdleStateHandler());
                         ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         // 登录请求处理器
                         ch.pipeline().addLast(new LoginRequestHandler());
+                        /**
+                         * 心跳检测,不需要登录
+                         */
+                        ch.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
                         ch.pipeline().addLast(new AuthHandler());
                         ch.pipeline().addLast(IMHandler.INSTANCE);
                       /*  // 单聊消息请求处理器
